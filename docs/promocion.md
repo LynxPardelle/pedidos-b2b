@@ -26,7 +26,7 @@ Revisar Settings → Rules → Rulesets y Settings → Environments antes de pro
 
 ## Estado de la preparación
 
-Las reglas remotas y los ambientes están activos. CI manual pasó; el disparo automático de los eventos está pendiente de diagnóstico. Ver [verificación](VERIFICACION.md) y [eventos de Actions](ACTIONS-EVENTOS.md). No se validó una promoción positiva de extremo a extremo.
+Las reglas remotas y los ambientes están activos. CI automático por push pasó y el gate negativo de procedencia se verificó con un evento pull_request_target. Ver [verificación](VERIFICACION.md) y [eventos de Actions](ACTIONS-EVENTOS.md). La cadena válida se comprueba mediante PR y checks obligatorios, conservando los resultados en el historial de GitHub.
 
 ## Checks que habilitan un PR
 

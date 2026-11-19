@@ -1,0 +1,35 @@
+{
+  "verifiedAt": "2026-11-19",
+  "automaticCi": {
+    "name": "pedidos-b2b",
+    "runId": 44615661927,
+    "url": "https://github.com/LynxPardelle/pedidos-b2b/actions/runs/44615661927",
+    "sha": "0e45626af953c83896ce41cf2ec7f103fc8ede73",
+    "event": "push",
+    "conclusion": "success"
+  },
+  "rejectedDirectPromotion": {
+    "repo": "pedidos-b2b",
+    "pr": 1,
+    "prUrl": "https://github.com/LynxPardelle/pedidos-b2b/pull/1",
+    "headSha": "0e45626af953c83896ce41cf2ec7f103fc8ede73",
+    "checkName": "zoo/promotion/production",
+    "appId": 15368,
+    "checkUrl": "https://github.com/LynxPardelle/pedidos-b2b/actions/runs/44615865474/job/135884248782",
+    "checkId": 135884248782,
+    "conclusion": "failure",
+    "blocked": true,
+    "mergeStateStatus": "BLOCKED",
+    "state": "closed",
+    "merged": false,
+    "closedHeadSha": "0e45626af953c83896ce41cf2ec7f103fc8ede73",
+    "observedAt": "2026-11-19T21:09:52.8420729Z",
+    "error": null,
+    "runUrl": "https://github.com/LynxPardelle/pedidos-b2b/actions/runs/44615865474",
+    "event": "pull_request_target"
+  },
+  "requiredAppId": 15368,
+  "protectionsChanged": false,
+  "temporaryProbeRemoved": true,
+  "positivePromotionEvidence": "GitHub pull request history: development -> testing -> main"
+}
