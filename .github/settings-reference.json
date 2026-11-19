@@ -1,0 +1,106 @@
+{
+  "repository": "LynxPardelle/pedidos-b2b",
+  "defaultBranch": "main",
+  "environments": {
+    "development": "development",
+    "testing": "testing",
+    "production": "main"
+  },
+  "rulesetIds": {
+    "integrity": 27667665,
+    "testing": 27667669,
+    "production": 27667672
+  },
+  "requiredChecks": {
+    "testing": [
+      "zoo/ci",
+      "zoo/promotion/testing"
+    ],
+    "main": [
+      "zoo/ci",
+      "zoo/promotion/production"
+    ]
+  },
+  "checkIntegrationId": 15368,
+  "bypassActors": [],
+  "requiredApprovals": 0,
+  "deployEnabled": false,
+  "actionsPolicies": [
+    {
+      "id": 16289,
+      "name": "ZooBeriah - promocion por metadatos",
+      "target": "actions",
+      "source_type": "Repository",
+      "source": "LynxPardelle/pedidos-b2b",
+      "enforcement": "active",
+      "conditions": {
+        "workflow_path": {
+          "exclude": [],
+          "include": [
+            ".github/workflows/promocion.yml"
+          ]
+        }
+      },
+      "rules": [
+        {
+          "type": "restrict_action_events",
+          "parameters": {
+            "allowed_events": [
+              "pull_request_target"
+            ]
+          }
+        }
+      ],
+      "node_id": "MDE0OkFjdGlvbnNSdWxlc2V0MTYyODk=",
+      "created_at": "2026-11-19T13:12:45.866-06:00",
+      "updated_at": "2026-11-19T13:12:46.016-06:00",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/LynxPardelle/pedidos-b2b/actions/policies/16289"
+        },
+        "html": {
+          "href": "https://github.com/LynxPardelle/pedidos-b2b/settings/actions/rules/16289"
+        }
+      }
+    },
+    {
+      "id": 16294,
+      "name": "ZooBeriah - eventos de CI y entrega",
+      "target": "actions",
+      "source_type": "Repository",
+      "source": "LynxPardelle/pedidos-b2b",
+      "enforcement": "active",
+      "conditions": {
+        "workflow_path": {
+          "exclude": [],
+          "include": [
+            ".github/workflows/ci.yml"
+          ]
+        }
+      },
+      "rules": [
+        {
+          "type": "restrict_action_events",
+          "parameters": {
+            "allowed_events": [
+              "push",
+              "pull_request",
+              "workflow_dispatch"
+            ]
+          }
+        }
+      ],
+      "node_id": "MDE0OkFjdGlvbnNSdWxlc2V0MTYyOTQ=",
+      "created_at": "2026-11-19T13:13:56.465-06:00",
+      "updated_at": "2026-11-19T13:13:56.645-06:00",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/LynxPardelle/pedidos-b2b/actions/policies/16294"
+        },
+        "html": {
+          "href": "https://github.com/LynxPardelle/pedidos-b2b/settings/actions/rules/16294"
+        }
+      }
+    }
+  ]
+}
