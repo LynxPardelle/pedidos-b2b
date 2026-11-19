@@ -1,0 +1,96 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Pedidos B2B - base serverless por ambiente, sin rutas de negocio.
+Parameters:
+  Stage:
+    Type: String
+    Default: development
+    AllowedValues: [development, testing, production]
+Conditions:
+  IsProduction: !Equals [!Ref Stage, production]
+Globals:
+  Function:
+    Runtime: nodejs24.x
+    Architectures: [arm64]
+    MemorySize: 128
+    Timeout: 5
+    Environment:
+      Variables:
+        STAGE: !Ref Stage
+        PRODUCT_SLUG: pedidos-b2b
+Resources:
+  ProductApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: $default
+      DefaultRouteSettings:
+        ThrottlingBurstLimit: 20
+        ThrottlingRateLimit: 10
+  HealthLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /zooberiah/${AWS::StackName}/health
+      RetentionInDays: 14
+  HealthRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: WriteOwnHealthLogs
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: [logs:CreateLogStream, logs:PutLogEvents]
+                Resource: !GetAtt HealthLogGroup.Arn
+  HealthFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../services/health/
+      Handler: index.handler
+      Role: !GetAtt HealthRole.Arn
+      LoggingConfig:
+        LogGroup: !Ref HealthLogGroup
+      Events:
+        Health:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref ProductApi
+            Path: /api/health
+            Method: GET
+            PayloadFormatVersion: '2.0'
+  OrdersTable:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      SSESpecification:
+        SSEEnabled: true
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: !If [IsProduction, true, false]
+Outputs:
+  HealthUrl:
+    Value: !Sub https://${ProductApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}/api/health
+  Stage:
+    Value: !Ref Stage
+  OrdersTableName:
+    Description: Pedidos e idempotencia del servicio de órdenes; el catálogo futuro tendrá su propio almacenamiento.
+    Value: !Ref OrdersTable
+

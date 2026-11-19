@@ -1,0 +1,21 @@
+{
+  "development": {
+    "branch": "development",
+    "stage": "development",
+    "samConfigEnv": "development",
+    "stackName": "pedidos-b2b-development"
+  },
+  "testing": {
+    "branch": "testing",
+    "stage": "testing",
+    "samConfigEnv": "testing",
+    "stackName": "pedidos-b2b-testing"
+  },
+  "production": {
+    "branch": "main",
+    "stage": "production",
+    "samConfigEnv": "production",
+    "stackName": "pedidos-b2b-production"
+  }
+}
+
