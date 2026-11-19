@@ -27,3 +27,9 @@ Revisar Settings → Rules → Rulesets y Settings → Environments antes de pro
 ## Estado de la preparación
 
 Las reglas remotas y los ambientes están activos. CI manual pasó; el disparo automático de los eventos está pendiente de diagnóstico. Ver [verificación](VERIFICACION.md) y [eventos de Actions](ACTIONS-EVENTOS.md). No se validó una promoción positiva de extremo a extremo.
+
+## Checks que habilitan un PR
+
+Las promociones requieren resultados de eventos genuinos push/pull_request/pull_request_target del commit correspondiente. Una ejecución workflow_dispatch permite revisar CI, pero no sustituye un check obligatorio de PR. Ante un evento pendiente, conservar las reglas y verificar la asociación del check con la revisión actual antes de fusionar.
+
+[Evaluación de checks obligatorios](https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/troubleshooting-required-status-checks#checks-from-some-workflow-jobs-are-not-evaluated).
